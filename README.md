@@ -43,6 +43,22 @@ Vendors buying in bulk (Large Order Size) achieve a ~72% reduction in unit cost 
 By plotting Total Sales vs. Profit Margin, we identified specific high-margin, low-volume brands that require immediate promotional strategies to unlock their revenue potential.
 ![Target Brands](target_brands_for_promotion.png)
 
+## 🔬 Technical Appendix: Exploratory Data Analysis (EDA)
+<details>
+  <summary>Click to view Data Distributions and Outlier Detection</summary>
+  
+  During the initial ETL phase, I conducted rigorous EDA to ensure data integrity and identify anomalies in pricing and freight costs before pushing to the Power BI dashboard.
+  
+  **Numerical Distributions:**
+  ![Distribution Plots](Distribution_plots_for_numerical_columns.png)
+
+  **Outlier Detection:**
+  ![Boxplots](Outlier_detection_with_Boxplot.png)
+  
+  **Categorical Analysis:**
+  ![Count Plots](count_plots_for_categorical_columns.png)
+</details>
+
 ## 📂 Repository Structure
 * `data/`: Contains the raw datasets.
 * `scripts/`: Python ETL scripts (`ingestion_db.py`, `get_vendor_sales_summary.py`).
