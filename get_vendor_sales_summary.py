@@ -80,15 +80,20 @@ def create_vendor_summary(conn):
     ORDER BY pa.TotalPurchaseDollars DESC
     """
     
-    vendor_sales_summary = pd.read_sql_query(query, conn)
-    
-    # Creating new columns for better analysis
-    vendor_sales_summary['GrossProfit'] = vendor_sales_summary['TotalSalesDollars'] - vendor_sales_summary['TotalPurchaseDollars']
-    vendor_sales_summary['ProfitMargin'] = ((vendor_sales_summary['GrossProfit'] / vendor_sales_summary['TotalSalesDollars']) * 100).round(2)
-    vendor_sales_summary['StockTurnover'] = vendor_sales_summary['TotalSalesQuantity'] / vendor_sales_summary['TotalPurchaseQuantity']
-    vendor_sales_summary['SalestoPurchaseRatio'] = vendor_sales_summary['TotalSalesDollars'] / vendor_sales_summary['TotalPurchaseDollars']
-    
-    return vendor_sales_summary
+   try:
+        vendor_sales_summary = pd.read_sql_query(query, conn)
+        
+        # Creating new columns for better analysis
+        vendor_sales_summary['GrossProfit'] = vendor_sales_summary['TotalSalesDollars'] - vendor_sales_summary['TotalPurchaseDollars']
+        vendor_sales_summary['ProfitMargin'] = ((vendor_sales_summary['GrossProfit'] / vendor_sales_summary['TotalSalesDollars']) * 100).round(2)
+        vendor_sales_summary['StockTurnover'] = vendor_sales_summary['TotalSalesQuantity'] / vendor_sales_summary['TotalPurchaseQuantity']
+        vendor_sales_summary['SalestoPurchaseRatio'] = vendor_sales_summary['TotalSalesDollars'] / vendor_sales_summary['TotalPurchaseDollars']
+        
+        return vendor_sales_summary
+        
+    except sqlite3.Error as e:
+        logging.error(f"Database error during summary creation: {e}")
+        return None
 
 def clean_data(df):
     '''Handles data type conversions, null values, and string formatting.'''

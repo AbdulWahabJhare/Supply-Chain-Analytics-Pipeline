@@ -12,9 +12,9 @@ logging.basicConfig(
 
 engine= create_engine('sqlite:///inventory.db')
 
-def ingest_db(df,table_name, engine):
-    '''this fuction will ingest the dataframe into data tabel'''
-    df.to_sql(table_name , con =engine ,  if_exists= 'replace', index = False)
+def ingest_db(df, table_name, engine):
+    '''this function will ingest the dataframe into data table in chunks to save memory'''
+    df.to_sql(table_name, con=engine, if_exists='replace', index=False, chunksize=10000)
     
 def load_raw_data():
     '''this function will load csv as dataframe and ingest it into db'''
